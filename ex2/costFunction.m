@@ -6,27 +6,39 @@ function [J, grad] = costFunction(theta, X, y)
 
 % Initialize some useful values
 m = length(y); % number of training examples
+nFeatures = size(X)(1,2); % number of features, including 1 const col
 
-% You need to return the following variables correctly 
-J = 0;
+% printf('X:');
+% disp(X);
+
+% theta is a (nFeatures, 1) matrix
+
 grad = zeros(size(theta));
+% printf('grad %d:\n', nFeatures);
+% disp(size(grad));
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Compute the cost of a particular choice of theta.
-%               You should set J to the cost.
-%               Compute the partial derivatives and set grad to the partial
-%               derivatives of the cost w.r.t. each parameter in theta
-%
-% Note: grad should have the same dimensions as theta
-%
+% print('hyp\n');
+% disp(hyp);
 
+for i = 1:m;
+    h = sigmoid(theta' * X(i,:)'); % the h_theta(x^(i)) term for this iteration
+    %printf('h = \n');
+    % disp(h);
 
+    J = J + (-y(i) * log(h) - (1 - y(i)) * log(1 - h));
+    for j = 1:nFeatures;
+        grad(j, 1) = grad(j, 1) + (h - y(i)) * X(i, j);
+    end
 
+end
 
+J = J / m;
+grad = grad / m;
 
+% printf('J\n');
+% disp(J);
 
-
-
-% =============================================================
+% printf('grad\n');
+% disp(grad);
 
 end

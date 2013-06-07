@@ -13,7 +13,7 @@ J = 0;
 grad = zeros(size(theta));
 
 for i = 1:m,
-    h = sigmoid(theta' * X(i,:)'); % the h_theta(x^(i)) term for this iteration
+    h = sigmoid(X(i,:) * theta); % the h_theta(x^(i)) term for this iteration
 
     regsum = 0.0; % the sum term of the regularization term
     for j = 2:nFeatures, % start at 2 so as to skip parameter theta_0
@@ -22,7 +22,7 @@ for i = 1:m,
     regterm = regsum * lambda / (2 * m);
 
     J = J + (-y(i) * log(h) - (1 - y(i)) * log(1 - h)) + regterm;
-    for j = 1:nFeatures;
+    for j = 1:nFeatures,
         grad(j, 1) = grad(j, 1) + (h - y(i)) * X(i, j);
     end
 end

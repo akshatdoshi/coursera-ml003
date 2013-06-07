@@ -13,6 +13,7 @@ nFeatures = size(X)(1,2); % number of features, including 1 const col
 
 % theta is a (nFeatures, 1) matrix
 
+J = 0;
 grad = zeros(size(theta));
 % printf('grad %d:\n', nFeatures);
 % disp(size(grad));
@@ -20,8 +21,9 @@ grad = zeros(size(theta));
 % print('hyp\n');
 % disp(hyp);
 
-for i = 1:m;
-    h = sigmoid(theta' * X(i,:)'); % the h_theta(x^(i)) term for this iteration
+for i = 1:m,
+    %h = sigmoid(theta' * X(i,:)'); % the h_theta(x^(i)) term for this iteration
+    h = sigmoid(X(i,:) * theta); % the h_theta(x^(i)) term for this iteration
     %printf('h = \n');
     % disp(h);
 

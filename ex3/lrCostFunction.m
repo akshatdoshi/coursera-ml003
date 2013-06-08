@@ -12,12 +12,50 @@ m = length(y); % number of training examples
 J = 0;
 grad = zeros(size(theta));
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Compute the cost of a particular choice of theta.
-%               You should set J to the cost.
-%               Compute the partial derivatives and set grad to the partial
-%               derivatives of the cost w.r.t. each parameter in theta
-%
+H = sigmoid(X * theta); % the h_theta(x^(i)) term for this iteration
+
+% printf('lrCostFunction\n');
+% disp(H);
+
+term1 = -y .* log(H);
+
+
+oneminusH = 1 - H;
+logH = log(oneminusH);
+oneminusY = 1 - y;
+term2 = oneminusY .* logH;
+
+termsum = term1 - term2;
+% termsum should be a vector
+
+J = sum(termsum) / m;
+
+% calculate the gradients
+betai = H - y;
+grad = X' * betai / m; % the summation at the bottom of page 6 of ex3.pdf
+
+
+% J should be a scalar
+
+%J = J + (-y(i) * log(h) - (1 - y(i)) * log(1 - h));
+
+if 0,
+    for i = 1:m,
+        %printf('h = \n');
+        % disp(h);
+
+        % J = J + -y(i) * log(h) - 1 + y(i)) * log(1 - h));
+        for j = 1:nFeatures;
+            grad(j, 1) = grad(j, 1) + (h - y(i)) * X(i, j);
+        end
+
+    end
+    J = J / m;
+    grad = grad / m;
+end
+
+
+
 % Hint: The computation of the cost function and gradients can be
 %       efficiently vectorized. For example, consider the computation
 %
@@ -36,17 +74,5 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
-
-
-
-
-
-
-
-
-
-% =============================================================
-
-grad = grad(:);
 
 end

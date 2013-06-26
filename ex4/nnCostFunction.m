@@ -77,6 +77,37 @@ J = J + (lambda / (2 * m)) * (t1 + t2);
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the 
 %               first time.
+
+Delta1 = zeros(size(Theta1));
+Delta2 = zeros(size(Theta2));
+
+for t=1:m,
+    % step 1: calculate activations
+    % these are all row vectors
+    a1 = [1 X(t,:)];
+    z2 = a1 * Theta1';
+    a2 = [1 sigmoid(z2)];
+    z3 = a2 * Theta2';
+
+    a3 = sigmoid(z3)'; % col vec
+
+    % step 2: calculate delta for output layer
+    ylogical = flaty(t,:)';
+    delta3 = a3 - ylogical;
+
+    % step 3: calculate delta for hidden layer
+    z2 = [1 z2];
+    delta2 = (delta3' * Theta2 .* sigmoidGradient(z2))';
+
+    % step 4: accumulate gradient
+    Delta1 = Delta1 + delta2(2:end) * a1; % skip the first element of delta2
+    Delta2 = Delta2 + delta3 * a2;
+end
+
+Theta1_grad = Delta1 ./ m;
+Theta2_grad = Delta2 ./ m;
+
+
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %

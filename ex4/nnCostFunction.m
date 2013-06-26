@@ -108,7 +108,6 @@ Theta1_grad = Delta1 ./ m;
 Theta2_grad = Delta2 ./ m;
 
 
-%
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
@@ -116,6 +115,16 @@ Theta2_grad = Delta2 ./ m;
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+
+regterm1 = (lambda / m) .* Theta1;
+regterm2 = (lambda / m) .* Theta2;
+
+% zero regterms for j = 0
+regterm1(:, 1) = 0;
+regterm2(:, 1) = 0;
+
+Theta1_grad = Theta1_grad + regterm1;
+Theta2_grad = Theta2_grad + regterm2;
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];

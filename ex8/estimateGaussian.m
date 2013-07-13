@@ -14,23 +14,12 @@ function [mu sigma2] = estimateGaussian(X)
 mu = zeros(n, 1);
 sigma2 = zeros(n, 1);
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Compute the mean of the data and the variances
-%               In particular, mu(i) should contain the mean of
-%               the data for the i-th feature and sigma2(i)
-%               should contain variance of the i-th feature.
-%
+% calculate mean
+mu = sum(X) / m;
 
-
-
-
-
-
-
-
-
-
-% =============================================================
-
+% calculate variance
+difference = repmat(mu, m, 1);
+diff2 = (X - difference) .^ 2;
+sigma2 = sum(diff2) / m;
 
 end

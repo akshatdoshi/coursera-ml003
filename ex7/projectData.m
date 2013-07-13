@@ -6,8 +6,22 @@ function Z = projectData(X, U, K)
 %   the first K columns of U. It returns the projected examples in Z.
 %
 
+n = size(X, 1);
 % You need to return the following variables correctly.
-Z = zeros(size(X, 1), K);
+Z = zeros(n, K);
+
+% keyboard();
+
+
+for i=1:n
+    x = X(i, :)';
+    for k=1:K
+        projection_k = x' * U(:, k);
+        Z(i, k) = projection_k;
+    end
+end
+
+disp(Z)
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the projection of the data using only the top K 

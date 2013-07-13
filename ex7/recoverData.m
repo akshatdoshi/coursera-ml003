@@ -6,8 +6,21 @@ function X_rec = recoverData(Z, U, K)
 %   approximate reconstruction in X_rec.
 %
 
+n = size(Z, 1);
+dims = size(U, 1);
+
 % You need to return the following variables correctly.
-X_rec = zeros(size(Z, 1), size(U, 1));
+X_rec = zeros(n, dims);
+
+
+for i=1:n
+    v = Z(i, :)';
+    for j=1:dims
+        recovered_j = v' * U(j, 1:K)';
+        X_rec(i, j) = recovered_j;
+    end
+end
+
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the approximation of the data by projecting back

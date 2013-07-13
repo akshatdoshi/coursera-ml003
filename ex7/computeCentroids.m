@@ -16,25 +16,39 @@ function centroids = computeCentroids(X, idx, K)
 % You need to return the following variables correctly.
 centroids = zeros(K, n);
 
-
-% ====================== YOUR CODE HERE ======================
-% Instructions: Go over every centroid and compute mean of all points that
-%               belong to it. Concretely, the row vector centroids(i, :)
-%               should contain the mean of the data points assigned to
-%               centroid i.
-%
-% Note: You can use a for-loop over the centroids to compute this.
-%
-
-
-
+if 0
+    disp(K)
+    printf('...\n');
+    disp(idx)
+    printf('===\n');
+    disp(centroids)
+    printf('---\n');
+    disp(X)
+    printf(',,,\n');
+end
 
 
+% for each centroid
+%   create a flag vector 1/0 where it's set if we're doing that centroid (elem in idx == loop iter)
+%   mutliply flag vector by ecah feature of X
+%   
+%   divide each cell in total by number of flags set
 
+flags = zeros(m, K);
+for i=1:m
+    flags(i, idx(i,1)) = 1;
+end
 
+for i=1:K
+    printf('doing centroid %d\n', i);
+    flagvec = flags(:, i)';
 
-% =============================================================
+    % number of samples assigned to this centroid
+    nsamples = sum(flagvec);
 
+    % compute mean
+    centroids(i, :) = (flagvec * X) ./ nsamples;
+end
 
 end
 

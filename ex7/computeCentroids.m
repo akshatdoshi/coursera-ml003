@@ -40,7 +40,6 @@ for i=1:m
 end
 
 for i=1:K
-    printf('doing centroid %d\n', i);
     flagvec = flags(:, i)';
 
     % number of samples assigned to this centroid

@@ -17,6 +17,40 @@ J = 0;
 X_grad = zeros(size(X));
 Theta_grad = zeros(size(Theta));
 
+% only accumulate cost j if Rij = 1
+Ymasked = R .* Y;
+
+% X: rows are feature vectors for ith movies
+% Theta: rows are parameter vectors for each user
+% R: bitfield whether rating is present for each user
+% Y: ratings 1-5. Rows are movies, columns are users.
+
+% cost function
+
+% SLOW ITERATIVE SOLUTION
+tot = 0.0;
+for i=1:num_movies
+    for j=1:num_users
+        if R(i, j) == 0
+            continue
+        end
+
+        Tj = Theta(j, :);
+        xi = X(i, :);
+        yij = Y(i, j);
+
+        incr = (xi * Tj' - yij) ^ 2;
+        % keyboard();
+        tot = tot + incr;
+        % tot
+    end
+end
+
+J = tot / 2;
+
+% THIS DOESN'T WORK
+% J = sum(sum(((X * Theta' - Y) .^ 2) .* Ymasked)) / 2;
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost function and gradient for collaborative
 %               filtering. Concretely, you should first implement the cost
